@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
 
 import { PORT } from "./config.js";
 import booksRoute from "./routes/booksRoute.js";
@@ -8,6 +9,17 @@ const app = express();
 dotenv.config();
 
 app.use(express.json());
+
+// to handle CORS errors
+app.use(cors());
+
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000",
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     allowedHeaders: ["ContentType"],
+//   })
+// );
 
 app.get("/", (req, res) => {
   // console.log("request : ", req);
