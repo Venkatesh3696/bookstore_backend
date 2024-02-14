@@ -23,7 +23,7 @@ booksRoute.post("/", async (req, res) => {
     return res.status(201).send(book);
   } catch (error) {
     console.log("DB error ====>", error);
-    res.send(500).send({ message: error.message });
+    res.status(500).send({ message: error.message });
   }
 });
 
@@ -84,13 +84,15 @@ booksRoute.put("/:id", async (req, res) => {
 
 // delete a book
 booksRoute.delete("/:id", async (req, res) => {
+  console.log("delete accessed");
   try {
     const { id } = req.params;
+    console.log("backend => ", id);
     const result = await Book.findByIdAndDelete(id);
     if (!result) {
       return res.status(404).send({ message: "Book not found!" });
     }
-    return res.status(404).send({ message: "book deleted successfully!" });
+    return res.status(200).send({ message: "book deleted successfully!" });
   } catch (error) {
     console.log(error.message);
     res.status(500).send({ message: error.message });
